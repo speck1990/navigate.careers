@@ -8,7 +8,7 @@ router.get("/about", async (req, res) => {
 	try {
 		const api = await PrismicInitApi(req);
 		const response = await api.query(Prismic.Predicates.at("document.type", "about"));
-		res.render("about", { document: response.results[0] });
+		res.render("single", { document: response.results[0] });
 	} catch {
 		res.status(404).send("page not found");
 	}
