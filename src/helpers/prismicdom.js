@@ -6,6 +6,6 @@ hbs.registerHelper("PrismicText", data => {
 	return PrismicDOM.RichText.asText(data, PrismicConfig.linkResolver);
 });
 
-hbs.registerHelper("PrismicHTML", data => {
+hbs.registerHelper("PrismicHtml", data => {
 	return PrismicDOM.RichText.asHtml(data, PrismicConfig.linkResolver);
 });
