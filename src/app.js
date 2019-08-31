@@ -12,6 +12,7 @@ require("./helpers/prismicdom");
 const indexRouter = require("./routes/index");
 const aboutRouter = require("./routes/about");
 const whatWeDoRouter = require("./routes/what-we-do");
+const whyWeExist = require("./routes/why-we-exist");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(PrismicContext);
 app.use("/", indexRouter);
 app.use("/", aboutRouter);
 app.use("/", whatWeDoRouter);
+app.use("/", whyWeExist);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
