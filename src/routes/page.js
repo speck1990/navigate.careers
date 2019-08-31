@@ -4,13 +4,14 @@ const router = express.Router();
 const Prismic = require("prismic-javascript");
 const PrismicInitApi = require("../utils/prismic-init");
 
-router.get("/why-we-exist", async (req, res) => {
+router.get("/:uid", async (req, res) => {
+	const uid = req.params.uid;
+
 	try {
 		const api = await PrismicInitApi(req);
-		const response = await api.query(Prismic.Predicates.at("document.type", "why_we_exist"));
-
-		console.log(response.results);
-		res.render("single", { document: response.results[0] });
+		const response = await api.getByUID("page", uid);
+		console.log(response);
+		res.render("page", { document: response });
 	} catch {
 		res.status(404).send("page not found");
 	}
