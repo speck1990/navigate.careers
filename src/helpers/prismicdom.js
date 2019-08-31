@@ -72,3 +72,7 @@ hbs.registerHelper("PrismicHtml", data => {
 
 	return PrismicDOM.RichText.asHtml(data, PrismicConfig.linkResolver, htmlSerializer);
 });
+
+hbs.registerHelper("PrismicDate", data => {
+	return PrismicDOM.Date(data);
+});
