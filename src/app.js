@@ -10,12 +10,13 @@ require("./helpers/prismicdom");
 
 // import routers
 const indexRouter = require("./routes/index");
+const aboutRouter = require("./routes/about");
 const whatWeDoRouter = require("./routes/what-we-do");
 
 const app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
 app.set("view options", { layout: "layouts/main" });
 
@@ -30,6 +31,7 @@ app.use(PrismicContext);
 
 // router setup
 app.use("/", indexRouter);
+app.use("/", aboutRouter);
 app.use("/", whatWeDoRouter);
 
 // catch 404 and forward to error handler
