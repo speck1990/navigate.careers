@@ -10,7 +10,6 @@ router.get("/:uid", async (req, res) => {
 	try {
 		const api = await PrismicInitApi(req);
 		const response = await api.getByUID("page", uid);
-		console.log(response);
 		res.render("page", { document: response });
 	} catch {
 		res.status(404).send("page not found");
