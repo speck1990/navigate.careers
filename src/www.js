@@ -5,7 +5,7 @@
  */
 
 const app = require("./app");
-const debug = require("debug")("compass.carreers:server");
+const debug = require("debug")("compass.careers:server");
 const http = require("http");
 
 /**
