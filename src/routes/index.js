@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 	// 	});
 	// });
 
-	res.render("index", { title: "compass.careers" });
+	res.render("index", { title: "Compass" });
 });
 
 module.exports = router;
