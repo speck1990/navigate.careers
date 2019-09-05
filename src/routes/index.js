@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 	// 	});
 	// });
 
-	res.render("index", { title: "Compass" });
+	res.render("index", { i: "Compass" });
 });
 
 module.exports = router;
