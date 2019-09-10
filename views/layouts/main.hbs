@@ -1,20 +1,421 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!-- Required tag for HTML5 -->
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>stephenpeck.me</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <!-- Incluse css and media files -->
+    <link rel="icon" type="image/png" href="#"><!-- favicon icon -->
+    <link href="https://fonts.googleapis.com/css?family=Barlow:400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/perfect-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/color.css">
+    <title>{{PrismicText document.data.title}}</title>
 </head>
 
 <body>
-    <ul>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/what-we-do">What We Do</a></li>
-        <li><a href="/why-we-exist">Why We Exist</a></li>
-    </ul>
-    {{{body}}}
+
+    <div class="theme-layout">
+
+        {{!-- <div class="se-pre-con"></div><!-- loader --> --}}
+
+
+
+        <header role="banner">
+
+            <div class="full-menu-height"></div>
+
+            <div class="main-bar stick">
+
+                <div class="container">
+
+                    <div class="row align-items-center">
+
+
+                        <div class="col-md-3">
+                            <div class="logo">
+                                <a href="/">
+                                    <img src="{{site.logo.url}}" alt="">
+                                </a>
+                            </div>
+                        </div> <!-- logo -->
+
+
+                        <div class="col-md-6">
+                            <nav role="navigation">
+                                <div class="main-menu">
+                                    <ul>
+
+
+                                        {{#each site.navigation}}
+                                        <li><a href="{{link.uid}}" title="">{{link_label.[0].text}}</a></li>
+                                        {{/each}}
+
+
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div> <!-- navigation -->
+
+
+                        <div class="col-md-3 text-right">
+                            <a href="#" class="butn1 butn-light">Login</a>
+                        </div> <!-- button -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="responsive-header">
+
+            <div class="full-menu-height"></div>
+
+            <div class="main-bar stick">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-4 col-sm-3">
+                            <div class="logo">
+                                <a href="#">
+                                    <img src="assets/images/logo.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8 col-sm-9 text-right">
+                            <a href="#" class="butn1 butn-light">Login</a>
+                            <span class="resp-btn">
+                                <i></i>
+                                <i></i>
+                                <i></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="menu-wraper">
+
+
+            <div class="side-menu">
+
+
+
+                <span class="close-menu">
+                    <i class="fa fa-times"></i>
+                </span>
+
+
+                <ul>
+                    {{#each site.navigation}}
+                    <li><a href="{{link.uid}}" title="">{{link_label.[0].text}}</a></li>
+                    {{/each}}
+                </ul> <!-- navigation -->
+
+
+
+                {{!-- <div class="side-meta topbar style2">
+                    <ul class="topbar-contact">
+                        <li><a href="mailto:uxnaqvi@gmail.com"><i class="flaticon-mail"></i>uxnaqvi@gmail.com</a></li>
+                        <li><a href="tel:8004896589"><i class="flaticon-phone"></i>( 800 ) 489 6589</a></li>
+                    </ul>
+                    <ul class="socials">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div> --}}
+
+
+
+            </div>
+
+
+        </div>
+
+
+        <main role="main">
+
+
+
+            <section>
+                <div class="sub-head">
+                    <div class="bg-image" style="background-image: url({{document.data.main_image.url}});"></div>
+                    <div class="sub-meta">
+
+
+                        {{{PrismicHtml document.data.title}}}
+
+
+                    </div>
+                </div>
+            </section><!-- Banner -->
+
+
+
+            <section>
+                <div class="block">
+                    <div class="container">
+                        <div class="row">
+
+
+                            <div class="col-md-6 mx-auto">
+
+                                {{{body}}}
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
+
+        {{!-- <footer role="contentinfo">
+
+
+            <div class="block main-footer">
+                <div class="container">
+                    <div class="footer-bg">
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <div class="widget">
+
+
+                                    <div class="about-logo">
+
+
+                                        <a href="#"><img src="{{site.footerLogo.url}}" alt=""></a>
+
+
+                                        <p>Pellentesque ultrices orci id justo vehicula, non aliquam erat lacinia.
+                                            Mauris rhoncus venenatis tempor.</p>
+
+
+                                        <ul>
+                                            <li><i class="fa fa-map-marker-alt"></i>31-33B Tan Thuan St, Tan Thuan EZ,
+                                            </li>
+                                            <li><i class="fa fa-envelope"></i>simpleemail@gmail.com</li>
+                                            <li><i class="fa fa-phone"></i>+98 987 787 123</li>
+                                        </ul>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="widget">
+
+
+                                    <div class="widget-title">
+                                        <h4>Get in Touch</h4>
+                                    </div>
+
+
+                                    <div class="get-in-touch">
+                                        <ul class="row no-gutters">
+
+
+                                            <li class="col-6 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+                                                <a href="#" class="social-icn facebook">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                    Facebook
+                                                </a>
+                                            </li>
+
+
+                                            <li class="col-6 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+                                                <a href="#" class="social-icn twitter">
+                                                    <i class="fab fa-twitter"></i>
+                                                    Twitter
+                                                </a>
+                                            </li>
+
+
+                                            <li class="col-6 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+                                                <a href="#" class="social-icn google-plus">
+                                                    <i class="fab fa-google-plus-g"></i>
+                                                    Google+
+                                                </a>
+                                            </li>
+
+
+                                            <li class="col-6 col-sm-12 col-md-6 col-lg-12 col-xl-6">
+                                                <a href="#" class="social-icn linkedin-in">
+                                                    <i class="fab fa-linkedin-in"></i>
+                                                    linkedin
+                                                </a>
+                                            </li>
+
+
+                                        </ul>
+                                        <div class="newsletter">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" required="required"
+                                                        placeholder="Subscribe Email">
+                                                </div>
+                                                <button type="submit" class="btn append-msg-icon"><i
+                                                        class="fa fa-envelope"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6 col-lg-3 col-xl-3">
+                                <div class="widget">
+                                    <div class="widget-title">
+                                        <h4>Gallery Images</h4>
+                                    </div>
+                                    <div class="gallery-car2 owl-carousel owl-theme">
+                                        <div class="item">
+                                            <a href="#">
+                                                <img src="assets/images/gallery1.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a href="#">
+                                                <img src="assets/images/gallery2.jpg" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a href="#">
+                                                <img src="assets/images/gallery3.jpg" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-6 col-lg-3 col-xl-3">
+                                <div class="widget">
+                                    <div class="widget-title">
+                                        <h4>Recent News</h4>
+                                    </div>
+                                    <ul class="recent-posts">
+                                        <li>
+                                            <h4><a href="#">New Your Focus to Prevent Overanalysis</a></h4>
+                                            <a href="#"><i class="fa fa-clock"></i>March 18,2019</a>
+                                        </li>
+                                        <li>
+                                            <h4><a href="#">Three Social Media Hacks for the Busy Entrepreneur</a></h4>
+                                            <a href="#"><i class="fa fa-clock"></i>March 18,2019</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- main footer -->
+        </footer> --}}
+
+
+        {{!-- TODO: Add site name variable and year variable --}}
+        <div class="bottom-bar">
+            <p>© {{site.year}} <a href="/">{{site.title}}</a> All Rights Reserved.</p>
+        </div><!-- bottom bar -->
+
+
+
+
+        <!-- login / register popup -->
+        <div class="cust-modal">
+            <span class="model-close"><i class="fa fa-times"></i></span>
+            <div class="model-content">
+                <div class="registr-form">
+                    <div class="bg-image with-pattern" style="background-image: url(assets/images/pattern.jpg);"></div>
+                    <div class="registr-content">
+                        <h3>Register Now</h3>
+                        <p>Get 100s of online Courses For Free</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Complete Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email Address">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Password">
+                            </div>
+                            <button type="submit">Register Now</button>
+                        </form>
+                    </div>
+                    <a href="#">Have An Account</a>
+                </div>
+                <div class="registr-form show-logn">
+                    <div class="bg-image with-pattern" style="background-image: url(assets/images/pattern.jpg);"></div>
+                    <div class="registr-content">
+                        <h3>Login Now</h3>
+                        <p>Get 100s of online Courses For Free</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email Address">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Password">
+                            </div>
+                            <button type="submit">Login Now</button>
+                        </form>
+                    </div>
+                    <a href="#">Don't Have Account</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal-overlay"></div>
+
+
+
+    </div>
+
+    <!-- Incluse js files -->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="assets/js/isotope.min.js"></script>
+    <script type="text/javascript" src="assets/js/isotope-init.js"></script>
+    <script type="text/javascript" src="assets/js/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+
 </body>
 
 </html>
