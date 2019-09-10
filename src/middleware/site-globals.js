@@ -13,8 +13,6 @@ module.exports = async (req, res, next) => {
 			footerLogo: data.footer_logo,
 			year: new Date().getFullYear()
 		};
-
-		console.log(data);
 	} catch {}
 
 	next();
