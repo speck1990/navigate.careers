@@ -8,6 +8,8 @@ const logger = require("morgan");
 const PrismicContext = require("./middleware/prismic-context");
 require("./helpers/prismicdom");
 
+const siteGlobals = require("./middleware/site-globals");
+
 // import routers
 const indexRouter = require("./routes/index");
 const pageRouter = require("./routes/page");
@@ -29,6 +31,9 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // middleware for prismic context
 app.use(PrismicContext);
+
+// middleware for site globals
+app.use(siteGlobals);
 
 // router setup
 app.use(indexRouter);
