@@ -3,10 +3,18 @@ const PrismicDOM = require("prismic-dom");
 const PrismicConfig = require("../config/prismic-configuration");
 
 hbs.registerHelper("PrismicText", data => {
+	if (!data) {
+		return "";
+	}
+
 	return PrismicDOM.RichText.asText(data, PrismicConfig.linkResolver);
 });
 
 hbs.registerHelper("PrismicHtml", data => {
+	if (!data) {
+		return "";
+	}
+
 	const Elements = PrismicDOM.RichText.Elements;
 
 	const htmlSerializer = (type, element, content, children) => {
@@ -74,5 +82,9 @@ hbs.registerHelper("PrismicHtml", data => {
 });
 
 hbs.registerHelper("PrismicDate", data => {
+	if (!data) {
+		return "";
+	}
+
 	return PrismicDOM.Date(data);
 });
