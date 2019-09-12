@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const hbs = require("hbs");
 
 // prismic setup
 const PrismicContext = require("./middleware/prismic-context");
@@ -22,6 +23,7 @@ const app = express();
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
 app.set("view options", { layout: "layouts/main" });
+hbs.registerPartials(path.join(__dirname, "../views/partials"));
 
 app.use(logger("dev"));
 app.use(express.json());
