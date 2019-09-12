@@ -13,6 +13,7 @@ const siteGlobals = require("./middleware/site-globals");
 
 // import routers
 const indexRouter = require("./routes/index");
+const libraryRouter = require("./routes/library");
 const pageRouter = require("./routes/page");
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(siteGlobals);
 
 // router setup
 app.use(indexRouter);
+app.use(libraryRouter);
 app.use(pageRouter);
 
 // catch 404 and forward to error handler
