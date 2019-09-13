@@ -18,8 +18,6 @@ const pageRouter = require("./routes/page");
 
 const app = express();
 
-//app.locals.site = require("./config/site-globals");
-
 // view engine setup
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
