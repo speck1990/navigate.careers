@@ -61,8 +61,14 @@ hbs.registerHelper("PrismicHtml", data => {
 			// case Elements.image:
 			// 	return ``;
 
-			// case Elements.embed:
-			// 	return ``;
+			case Elements.embed:
+				return `
+					<div class="success-video embed-video" style="background-image: url(${element.oembed.thumbnail_url});">
+						<div class="video-meta">
+							<a data-fancybox href="${element.oembed.embed_url}"><i class="fa fa-play"></i></a>
+						</div>
+					</div>
+				`;
 
 			// case Elements.hyperlink:
 			// 	return ``;
