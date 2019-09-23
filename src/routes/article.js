@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const Prismic = require("prismic-javascript");
 const PrismicInitApi = require("../utils/prismic-init");
 
 router.get("/article/:id", async (req, res) => {
@@ -9,7 +8,7 @@ router.get("/article/:id", async (req, res) => {
 
 	try {
 		const api = await PrismicInitApi(req);
-		const response = await api.getByID(id);
+		const response = await api.getByID(id, { ref: res.locals.site.ref });
 		res.render("article", { document: response, layout: "layouts/simple" });
 	} catch {
 		res.status(404).send("page not found");

@@ -1,8 +1,16 @@
+const Prismic = require("prismic-javascript");
+const Cookies = require("cookies");
 const PrismicInitApi = require("../utils/prismic-init");
 
 module.exports = async (req, res, next) => {
 	try {
 		const api = await PrismicInitApi(req);
+
+		const cookies = new Cookies(req, res);
+		const previewRef = cookies.get(Prismic.previewCookie);
+		const masterRef = api.refs.find(ref => ref.isMasterRef === true);
+		const ref = previewRef || masterRef.ref;
+
 		const response = await api.getSingle("site_layout");
 		const data = response.data;
 
@@ -11,7 +19,8 @@ module.exports = async (req, res, next) => {
 			logo: data.site_logo,
 			navigation: data.navigation,
 			footerLogo: data.footer_logo,
-			year: new Date().getFullYear()
+			year: new Date().getFullYear(),
+			ref
 		};
 	} catch {}
 
