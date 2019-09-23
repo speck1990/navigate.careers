@@ -3,6 +3,10 @@
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
+}
+
+.embed-video,
+.course-detail img {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;
