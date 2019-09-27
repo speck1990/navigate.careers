@@ -13,3 +13,18 @@
 	-o-border-radius: 5px;
 	border-radius: 5px;
 }
+
+.course-date {
+	display: inline-block;
+	width: 100%;
+	vertical-align: middle;
+	margin-top: 21px;
+}
+
+.course-date span {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+	color: #999999;
+	line-height: 22px;
+}
