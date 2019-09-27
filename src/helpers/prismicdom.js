@@ -92,5 +92,8 @@ hbs.registerHelper("PrismicDate", data => {
 		return "";
 	}
 
-	return PrismicDOM.Date(data);
+	const options = { year: "numeric", month: "long", day: "numeric" };
+	const date = new Intl.DateTimeFormat("en-US", options).format(new Date(PrismicDOM.Date(data)));
+
+	return date;
 });
