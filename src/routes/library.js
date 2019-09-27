@@ -28,7 +28,7 @@ router.get("/library", async (req, res, next) => {
 			});
 		});
 
-		res.render("library", { document: response, categories, articles: articles.results });
+		res.render("library", { document: response, categories, articles: articles.results, noContainer: true });
 	} catch (error) {
 		res.status(404).send(error);
 	}
