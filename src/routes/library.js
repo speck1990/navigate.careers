@@ -10,7 +10,7 @@ router.get("/library", async (req, res, next) => {
 		const api = await PrismicInitApi(req);
 		const response = await api.getSingle("library");
 
-		const articles = await api.query(Prismic.Predicates.at("document.type", "article"));
+		const articles = await api.query(Prismic.Predicates.at("document.type", "article"), { orderings: "[document.first_publication_date desc]" });
 
 		// Add category slugs to array
 		let usedCategories = articles.results.map(data => data.data.category.slug);
@@ -28,6 +28,17 @@ router.get("/library", async (req, res, next) => {
 			});
 		});
 
+		// Add "new" property to article if published less than 15 days
+		articles.results.forEach((article, index) => {
+			const pubDate = new Date(article.first_publication_date);
+			const now = new Date();
+			const diff = (now - pubDate) / (1000 * 60 * 60 * 24);
+			if (diff < 8) {
+				articles.results[index].new = true;
+			}
+		});
+
+		//console.log(articles.results);
 		res.render("library", { document: response, categories, articles: articles.results, noContainer: true });
 	} catch (error) {
 		res.status(404).send(error);
