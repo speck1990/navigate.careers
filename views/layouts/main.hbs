@@ -21,14 +21,11 @@
         <div class="container">
             <div class="row">
 
-
-                <div class="col-md-11 col-xl-10 mx-auto">
-
-                    {{{body}}}
-
-                </div>
-
-
+                {{#if noContainer}}
+                {{{body}}}
+                {{else}}
+                <div class="col-md-11 col-xl-10 mx-auto">{{{body}}}</div>
+                {{/if}}
 
             </div>
         </div>
