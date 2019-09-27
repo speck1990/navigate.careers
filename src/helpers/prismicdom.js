@@ -97,3 +97,13 @@ hbs.registerHelper("PrismicDate", data => {
 
 	return date;
 });
+
+hbs.registerHelper("Shorten", data => {
+	if (!data || data == "") {
+		return "";
+	}
+
+	let text = PrismicDOM.RichText.asText(data, PrismicConfig.linkResolver);
+	text = text.substr(0, 209);
+	return `${text}...`;
+});
