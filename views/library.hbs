@@ -1,39 +1,27 @@
-<div class="course-page">
-
-    <div id="options">
-        <div class="option-isotop">
-            <ul id="filter2" class="option-set default" data-option-key="filter">
-
-                {{#each categories}}
-                <li><a href="#{{slug}}" data-option-value=".{{slug}}" title="{{name}}">{{name}}</a></li>
-                {{/each}}
-
-            </ul>
-        </div>
-    </div><!-- FILTER BUTTONS -->
-
-    <ul class="row masonry">
+<div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
+    <div class="course-list-wrap">
 
         {{#each articles}}
-        <li class="col-sm-6 col-lg-4 {{data.category.slug}}">
-            <div class="pop-course">
-                <div class="course-thumb">
-                    <img src="{{data.featured_image.url}}" alt="">
-                    <a href="/article/{{id}}" class="butn">View</a>
-                </div>
-                <div class="course-meta">
-                    <div class="course-date">
-                        <span>{{PrismicDate first_publication_date}}</span>
-                    </div>
-                    <h2>{{PrismicText data.title}}</h2>
-                </div>
+        <div class="course-list">
+            <div class="course-thumb">
+                <img src="{{data.featured_image.thumbnail.url}}" alt="">
+                <span>New</span>
             </div>
-        </li>
+            <div class="course-meta">
+                <div class="course-date">
+                    <span>{{PrismicDate first_publication_date}}</span>
+                </div>
+                <h2><a href="/article/{{id}}">{{PrismicText data.title}}</a></h2>
+                <p>Pellentesque ultrices orci id justo vehicula, non aliquam erat lacinia. Mauris rhoncus
+                    venenatis Pellentesque ultrices orci id justo vehicula, non aliquam Pellentesque
+                    aliquasto vehicula, non aliquam erat lacinia.</p>
+                <a href="#" class="read-more">Read More</a>
+            </div>
+        </div>
         {{/each}}
 
-    </ul>
-
-    <ul class="paginationz">
+    </div>
+    <ul class="paginationz top-margin-70">
         <li class="prev"><a href="#" title=""><i class="fa fa fa-caret-left"></i></a></li>
         <li><a href="#" title="">1</a></li>
         <li><a class="active" href="#" title="">2</a></li>
@@ -43,5 +31,34 @@
         <li><a href="#" title="">13</a></li>
         <li class="next"><a href="#" title=""><i class="fa fa fa-caret-right"></i></a></li>
     </ul>
+</div>
 
+<div class="col-sm-7 col-md-5 col-lg-4 col-xl-3">
+    <aside class="sidebar right">
+        <div class="widget">
+            <div class="widget-title">
+                <h4>Categories</h4>
+            </div>
+            <ul class="helpful-link">
+
+                {{#each categories}}
+                <li><a href="#{{slug}}">{{name}}</a></li>
+                {{/each}}
+
+            </ul>
+        </div>
+        <div class="widget black-bg">
+            <div class="newsletter-bg">
+
+                <h4>Newsletter</h4>
+                <p>Subscribe Our Newsletter and Get Updates.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="email" class="form-control" required="required" placeholder="Subscribe Email">
+                    </div>
+                    <button type="submit" class="btn">Subscribe Now</button>
+                </form>
+            </div>
+        </div>
+    </aside>
 </div>
