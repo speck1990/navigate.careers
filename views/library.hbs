@@ -5,17 +5,19 @@
         <div class="course-list">
             <div class="course-thumb">
                 <img src="{{data.featured_image.thumbnail.url}}" alt="">
+                {{#if new}}
                 <span>New</span>
+                {{/if}}
             </div>
             <div class="course-meta">
                 <div class="course-date">
                     <span>{{PrismicDate first_publication_date}}</span>
                 </div>
                 <h2><a href="/article/{{id}}">{{PrismicText data.title}}</a></h2>
-                <p>Pellentesque ultrices orci id justo vehicula, non aliquam erat lacinia. Mauris rhoncus
-                    venenatis Pellentesque ultrices orci id justo vehicula, non aliquam Pellentesque
-                    aliquasto vehicula, non aliquam erat lacinia.</p>
-                <a href="#" class="read-more">Read More</a>
+
+                <p>{{Shorten data.body}}</p>
+
+                <a href="/article/{{id}}" class="read-more">Read More</a>
             </div>
         </div>
         {{/each}}
