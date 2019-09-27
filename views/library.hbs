@@ -18,10 +18,13 @@
         <li class="col-sm-6 col-lg-4 {{data.category.slug}}">
             <div class="pop-course">
                 <div class="course-thumb">
-                    <img src="assets/images/course1.jpg" alt="">
+                    <img src="{{data.featured_image.url}}" alt="">
                     <a href="/article/{{id}}" class="butn">View</a>
                 </div>
                 <div class="course-meta">
+                    <div class="course-date">
+                        <span>{{PrismicDate first_publication_date}}</span>
+                    </div>
                     <h2>{{PrismicText data.title}}</h2>
                 </div>
             </div>
