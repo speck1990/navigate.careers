@@ -1,7 +1,7 @@
 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
     <div class="course-list-wrap">
 
-        {{#each articles}}
+        {{#each articles.results}}
         <div class="course-list">
             <div class="course-thumb">
                 <img src="{{data.featured_image.thumbnail.url}}" alt="">
@@ -23,16 +23,8 @@
         {{/each}}
 
     </div>
-    <ul class="paginationz top-margin-70">
-        <li class="prev"><a href="#" title=""><i class="fa fa fa-caret-left"></i></a></li>
-        <li><a href="#" title="">1</a></li>
-        <li><a class="active" href="#" title="">2</a></li>
-        <li><a href="#" title="">3</a></li>
-        <li><a href="#" title="">4</a></li>
-        <li class="space">.......</li>
-        <li><a href="#" title="">13</a></li>
-        <li class="next"><a href="#" title=""><i class="fa fa fa-caret-right"></i></a></li>
-    </ul>
+
+    {{{paginator}}}
 </div>
 
 <div class="col-sm-7 col-md-5 col-lg-4 col-xl-3">
