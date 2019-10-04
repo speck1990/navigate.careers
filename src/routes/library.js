@@ -8,12 +8,13 @@ const PrismicInitApi = require("../utils/prismic-init");
 /* GET library page. */
 router.get("/library", async (req, res, next) => {
 	const page = req.query.page;
-
+	const cat = req.query.category;
 	try {
 		const api = await PrismicInitApi(req);
 		const response = await api.getSingle("library");
 
-		const articles = await api.query(Prismic.Predicates.at("document.type", "article"), { orderings: "[document.first_publication_date desc]", pageSize: 2, page: page });
+		// Get all of articles
+		let articles = await api.query(Prismic.Predicates.at("document.type", "article"));
 
 		// Add category slugs to array
 		let usedCategories = articles.results.map(data => data.data.category.slug);
@@ -31,6 +32,13 @@ router.get("/library", async (req, res, next) => {
 			});
 		});
 
+		const articleOptions = { orderings: "[document.first_publication_date desc]", pageSize: 10, page };
+		if (!cat) {
+			articles = await api.query(Prismic.Predicates.at("document.type", "article"), articleOptions);
+		} else {
+			articles = await api.query([Prismic.Predicates.at("document.type", "article"), Prismic.Predicates.at("my.article.category", cat)], articleOptions);
+		}
+
 		// Add "new" property to article if published less than 15 days
 		articles.results.forEach((article, index) => {
 			const pubDate = new Date(article.first_publication_date);
@@ -41,8 +49,12 @@ router.get("/library", async (req, res, next) => {
 			}
 		});
 
+		let prelink = "/library";
+		if (cat) {
+			prelink += `?category=${cat}`;
+		}
 		let paginator = new pagination.TemplatePaginator({
-			prelink: "/library",
+			prelink,
 			current: articles.page,
 			rowsPerPage: articles.results_per_page,
 			totalResult: articles.total_results_size,
