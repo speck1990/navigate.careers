@@ -8,7 +8,7 @@ router.get("/", async (req, res, next) => {
 	try {
 		const api = await PrismicInitApi(req);
 		const response = await api.getSingle("home");
-		res.render("index", { document: response });
+		res.render("index", { layout: "layouts/home", document: response });
 	} catch {
 		res.status(404).render("404", { layout: "layouts/simple" });
 	}
