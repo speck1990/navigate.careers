@@ -32,3 +32,8 @@
 .read-more {
 	width: 100px !important;
 }
+
+.loading {
+	margin-top: 15px;
+	display: none;
+}

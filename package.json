@@ -7,14 +7,20 @@
 		"dev": "nodemon ./src/www -e js,hbs"
 	},
 	"dependencies": {
+		"body-parser": "^1.19.0",
 		"cookie-parser": "~1.4.4",
 		"cookies": "^0.7.3",
 		"debug": "~2.6.9",
 		"express": "~4.16.1",
+		"express-session": "^1.17.0",
 		"hbs": "^4.0.4",
 		"http-errors": "~1.6.3",
+		"mongoose": "^5.7.5",
 		"morgan": "~1.9.1",
 		"pagination": "^0.4.6",
+		"passport": "^0.4.0",
+		"passport-local": "^1.0.0",
+		"passport-local-mongoose": "^5.0.1",
 		"prismic-dom": "^2.1.0",
 		"prismic-javascript": "^2.1.1"
 	},

@@ -20,6 +20,7 @@ module.exports = async (req, res, next) => {
 			navigation: data.navigation,
 			footerLogo: data.footer_logo,
 			year: new Date().getFullYear(),
+			user: req.isAuthenticated(),
 			ref
 		};
 	} catch {}

@@ -18,17 +18,21 @@
             <div class="bg-image with-pattern"></div>
             <div class="registr-content">
                 <h3>Login</h3>
-                <form>
+                <form id="loginForm">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email Address">
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="Email Address">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Password">
                     </div>
+                    <div id="loginErrors"></div>
                     <button type="submit">Login</button>
                 </form>
             </div>
-            <a href="#">Don't Have Account</a>
+            <p class="loading"><img src="/images/loader.gif" alt=""></p>
+            {{!-- <a href="#">Don't Have Account</a> --}}
         </div>
 
     </div>
@@ -51,6 +55,7 @@
 <script type="text/javascript" src="/assets/js/jquery.fancybox.min.js"></script>
 <script type="text/javascript" src="/assets/js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="/assets/js/my-script.js"></script>
 
 <!-- REVOLUTION JS FILES -->
 <script type="text/javascript" src="assets/js/revolution/jquery.themepunch.tools.min.js"></script>

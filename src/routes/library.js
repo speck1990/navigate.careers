@@ -5,8 +5,10 @@ const pagination = require("pagination");
 const Prismic = require("prismic-javascript");
 const PrismicInitApi = require("../utils/prismic-init");
 
+const auth = require("../middleware/auth");
+
 /* GET library page. */
-router.get("/library", async (req, res, next) => {
+router.get("/library", auth, async (req, res) => {
 	const page = req.query.page;
 	const cat = req.query.category;
 	try {

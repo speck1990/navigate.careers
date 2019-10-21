@@ -4,6 +4,12 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const expressSession = require("express-session");
+const bodyParser = require("body-parser");
+
+const User = require("./models/user");
 
 // prismic setup
 const PrismicContext = require("./middleware/prismic-context");
@@ -16,7 +22,12 @@ const indexRouter = require("./routes/index");
 const libraryRouter = require("./routes/library");
 const articleRouter = require("./routes/article");
 const previewRouter = require("./routes/preview");
+const loginRouter = require("./routes/login");
+const logoutRouter = require("./routes/logout");
 const pageRouter = require("./routes/page");
+
+// connect to database
+require("./db/mongoose");
 
 const app = express();
 
@@ -32,6 +43,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+	expressSession({
+		secret: "compass careers will help you learn",
+		resave: false,
+		saveUninitialized: false
+	})
+);
+
+// passport user auth setup
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // middleware for prismic context
 app.use(PrismicContext);
 
@@ -42,6 +69,8 @@ app.use(siteGlobals);
 app.use(indexRouter);
 app.use(libraryRouter);
 app.use(articleRouter);
+app.use(loginRouter);
+app.use(logoutRouter);
 app.use(previewRouter);
 app.use(pageRouter);
 
