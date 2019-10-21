@@ -24,6 +24,7 @@ const articleRouter = require("./routes/article");
 const previewRouter = require("./routes/preview");
 const loginRouter = require("./routes/login");
 const logoutRouter = require("./routes/logout");
+const registerRouter = require("./routes/register");
 const pageRouter = require("./routes/page");
 
 // connect to database
@@ -71,6 +72,7 @@ app.use(libraryRouter);
 app.use(articleRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
+app.use(registerRouter);
 app.use(previewRouter);
 app.use(pageRouter);
 
