@@ -1,4 +1,3 @@
-require("dotenv").config();
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -9,6 +8,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const expressSession = require("express-session");
 const bodyParser = require("body-parser");
+
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 const User = require("./models/user");
 
