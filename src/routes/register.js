@@ -5,11 +5,13 @@ const passport = require("passport");
 
 const PrismicInitApi = require("../utils/prismic-init");
 
-router.get("/register", async (req, res) => {
+const auth = require("../middleware/auth");
+
+router.get("/register", auth, async (req, res) => {
 	res.render("register", { layout: "layouts/simple" });
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", auth, async (req, res) => {
 	User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
 		if (err) {
 			console.log(err);
