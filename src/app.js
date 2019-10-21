@@ -9,6 +9,7 @@ const LocalStrategy = require("passport-local");
 const expressSession = require("express-session");
 const bodyParser = require("body-parser");
 
+// environment variables setup
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 const User = require("./models/user");
