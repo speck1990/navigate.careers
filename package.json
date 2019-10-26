@@ -30,6 +30,9 @@
 		"prismic-javascript": "^2.1.1"
 	},
 	"devDependencies": {
+		"gulp": "^4.0.2",
+		"gulp-concat-css": "^3.1.0",
+		"gulp-uglifycss": "^1.1.0",
 		"jest": "^24.9.0",
 		"nodemon": "^1.19.1"
 	}
