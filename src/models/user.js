@@ -15,17 +15,6 @@ const UserSchema = new mongoose.Schema({
 			}
 		}
 	},
-	password: {
-		type: String,
-		// required: true,
-		trim: true,
-		minlength: 7,
-		validate(value) {
-			if (value.toLowerCase().includes("password")) {
-				throw new Error('Password cannot contain "password"');
-			}
-		}
-	},
 	firstname: {
 		type: String,
 		trim: true
