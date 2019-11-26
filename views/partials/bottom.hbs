@@ -20,8 +20,7 @@
                 <h3>Login</h3>
                 <form id="loginForm">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="username" name="username"
-                            placeholder="Email Address">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" id="password" name="password"
@@ -32,7 +31,42 @@
                 </form>
             </div>
             <p class="loading"><img src="/images/loader.gif" alt=""></p>
-            {{!-- <a href="#">Don't Have Account</a> --}}
+            <a href="#">Don't Have Account</a>
+        </div>
+
+        <div class="registr-form show-logn">
+            <div class="bg-image with-pattern"></div>
+            <div class="registr-content">
+                <h3>Register Now</h3>
+                <p>Get access to our full library</p>
+                <form id="registerForm" novalidate>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="firstname" name="firstname"
+                            placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="confirmpassword" name="confirmpassword"
+                            placeholder="Confirm Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="organization" name="organization"
+                            placeholder="Organization Code">
+                    </div>
+                    <div id="registerErrors"></div>
+                    <button type="submit">Register Now</button>
+                </form>
+            </div>
+            <a href="#">Have An Account</a>
         </div>
 
     </div>
