@@ -7,11 +7,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
 const expressSession = require("express-session");
 const bodyParser = require("body-parser");
-
-const User = require("./models/user");
 
 // prismic setup
 const PrismicContext = require("./middleware/prismic-context");
@@ -34,6 +31,12 @@ require("./db/mongoose");
 
 const app = express();
 
+// passport config
+const User = require("./models/user");
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // view engine setup
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
@@ -55,12 +58,9 @@ app.use(
 	})
 );
 
-// passport user auth setup
+// passport initialize
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // middleware for prismic context
 app.use(PrismicContext);
