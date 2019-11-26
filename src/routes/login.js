@@ -7,7 +7,7 @@ router.post("/login", async (req, res, next) => {
 		if (error) return next(error);
 
 		if (!user) {
-			return res.send("Username or password are incorrect");
+			return res.send("Email or password are incorrect");
 		}
 
 		req.logIn(user, error => {
