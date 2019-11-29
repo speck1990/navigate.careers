@@ -6,6 +6,11 @@ const OrganizationSchema = new mongoose.Schema({
 		required: true,
 		trim: true
 	},
+	domain: {
+		type: String,
+		required: true,
+		trim: true
+	}
 	accessCode: {
 		type: String,
 		unique: true,
