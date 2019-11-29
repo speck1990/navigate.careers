@@ -26,12 +26,21 @@ $(function() {
 				window.location.href = "/library";
 			} else {
 				$(".loading").hide();
-				//$("#registerErrors").html(errors.email.message);
+
+				let msg;
+
+				if (result.errors.invalid.length > 0) {
+					msg = result.errors.invalid[0].message;
+				}
+
+				if (result.errors.requiredEmpty.length > 0) {
+					msg = "Please complete required fields.";
+				}
+
 				result.fields.forEach(field => {
-					const inputField = event.target[field];
-					if (result.errors.includes(field)) {
+					if (result.errors.requiredEmpty.includes(field)) {
 						event.target[field].classList.add("is-invalid");
-						$("#registerErrors").html("Please complete required fields.");
+						$("#registerErrors").html(msg);
 					} else {
 						event.target[field].classList.remove("is-invalid");
 						// event.target[field].classList.add("is-valid");
