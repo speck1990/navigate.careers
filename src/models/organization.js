@@ -10,7 +10,7 @@ const OrganizationSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true
-	}
+	},
 	accessCode: {
 		type: String,
 		unique: true,
