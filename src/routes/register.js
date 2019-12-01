@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Organization = require("../models/organization");
 const passport = require("passport");
 const passwordValidator = require("password-validator");
 const validator = require("validator");
@@ -62,27 +63,65 @@ router.post("/register", async (req, res) => {
 		});
 	}
 
-	const result = {
-		valid: false,
-		fields,
-		errors: {
-			requiredEmpty,
-			invalid
+	let result = { valid: true };
+	let organizationId;
+	const organizationCode = req.body.organization;
+
+	try {
+		const organization = await Organization.findOne({ accessCode: organizationCode });
+		if (!organization) {
+			invalid.push({
+				field: "organization",
+				message: "Invalid organization code."
+			});
+		} else {
+			const user = await User.findOne({ email: req.body.email });
+			if (user) {
+				invalid.push({
+					field: "email",
+					message: "Email is already registered."
+				});
+			} else {
+				const domain = req.body.email.substring(req.body.email.indexOf("@") + 1);
+				if (organization.domain !== domain) {
+					invalid.push({
+						field: "organization",
+						message: "Organization code doesn't match email domain."
+					});
+				} else {
+					organizationId = organization._id;
+				}
+			}
 		}
-	};
+	} catch (error) {
+		result = { valid: false, error };
+	}
 
-	return res.send(result);
+	if (requiredEmpty.length > 0 || invalid.length > 0) {
+		result = {
+			valid: false,
+			fields,
+			errors: {
+				requiredEmpty,
+				invalid
+			}
+		};
+	}
 
-	// User.register(new User({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname }), req.body.password, (err, user) => {
-	// 	if (err) {
-	// 		console.log(err);
-	// 		return res.send(err);
-	// 	}
-
-	// 	passport.authenticate("local")(req, res, () => {
-	// 		return res.send({ valid: true });
-	// 	});
-	// });
+	if (result.valid) {
+		User.register(new User({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, organization: organizationId }), req.body.password, (err, user) => {
+			if (err) {
+				console.log(err);
+				result = { valid: false, err };
+			} else {
+				passport.authenticate("local")(req, res, () => {
+					return res.send(result);
+				});
+			}
+		});
+	} else {
+		return res.send(result);
+	}
 });
 
 module.exports = router;
