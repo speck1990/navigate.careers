@@ -124,4 +124,19 @@ router.post("/register", async (req, res) => {
 	}
 });
 
+router.get("/organization", async (req, res) => {
+	const organization = new Organization({
+		name: "General",
+		domain: "gmail.com",
+		accessCode: "12345678"
+	});
+
+	try {
+		await organization.save();
+		res.status(201).send(organization);
+	} catch (error) {
+		res.status(404).send(error);
+	}
+});
+
 module.exports = router;
