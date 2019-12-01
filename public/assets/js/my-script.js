@@ -38,7 +38,7 @@ $(function() {
 				}
 
 				result.fields.forEach(field => {
-					if (result.errors.requiredEmpty.includes(field)) {
+					if (result.errors.requiredEmpty.includes(field) || result.errors.invalid.find(invError => invError.field === field)) {
 						event.target[field].classList.add("is-invalid");
 						$("#registerErrors").html(msg);
 					} else {
