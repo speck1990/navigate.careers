@@ -6,14 +6,6 @@ const passport = require("passport");
 const passwordValidator = require("password-validator");
 const validator = require("validator");
 
-const PrismicInitApi = require("../utils/prismic-init");
-
-const auth = require("../middleware/auth");
-
-router.get("/register", async (req, res) => {
-	res.render("register", { layout: "layouts/simple" });
-});
-
 router.post("/register", async (req, res) => {
 	const entries = Object.entries(req.body);
 	const fields = Object.keys(req.body);
