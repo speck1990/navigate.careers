@@ -26,26 +26,33 @@ $(function() {
 				window.location.href = "/library";
 			} else {
 				$(".loading").hide();
+				$(".alert").show();
 
-				let msg;
+				let msg = "";
+				result.errors.forEach(error => (msg += error.msg + "<br>"));
 
-				if (result.errors.invalid.length > 0) {
-					msg = result.errors.invalid[0].message;
-				}
-
-				if (result.errors.requiredEmpty.length > 0) {
-					msg = "Please complete required fields.";
-				}
-
-				result.fields.forEach(field => {
-					if (result.errors.requiredEmpty.includes(field) || result.errors.invalid.find(invError => invError.field === field)) {
-						event.target[field].classList.add("is-invalid");
-						$("#registerErrors").html(msg);
+				let errorFields = [];
+				result.errors.forEach(error => {
+					if (error.param === "_error") {
+						error.nestedErrors.forEach(e => {
+							errorFields.push(e.param);
+						});
 					} else {
-						event.target[field].classList.remove("is-invalid");
-						// event.target[field].classList.add("is-valid");
+						errorFields.push(error.param);
 					}
 				});
+				errorFields = [...new Set(errorFields)];
+
+				result.fields.forEach(field => {
+					const errorIndex = errorFields.indexOf(field);
+					if (errorIndex > -1) {
+						event.target[field].classList.add("is-invalid");
+					} else {
+						event.target[field].classList.remove("is-invalid");
+					}
+				});
+
+				$("#registerErrors").html(msg);
 			}
 		});
 	});

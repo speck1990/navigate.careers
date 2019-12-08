@@ -3,117 +3,32 @@ const router = express.Router();
 const User = require("../models/user");
 const Organization = require("../models/organization");
 const passport = require("passport");
-const passwordValidator = require("password-validator");
-const validator = require("validator");
 
-router.post("/register", async (req, res) => {
-	const entries = Object.entries(req.body);
+const { userValidationRules, validationResult } = require("../middleware/validation");
+
+router.post("/register", userValidationRules(), async (req, res) => {
+	let result = { valid: true };
+
 	const fields = Object.keys(req.body);
 
-	let requiredEmpty = [];
-	entries.forEach(entry => {
-		if (!entry[1]) {
-			requiredEmpty.push(entry[0]);
-		}
-	});
-
-	let invalid = [];
-	if (!validator.isEmail(req.body.email)) {
-		invalid.push({
-			field: "email",
-			message: "Email is invalid"
-		});
-	}
-
-	const passwordSchema = new passwordValidator();
-
-	passwordSchema
-		.is()
-		.min(8) // Minimum length 8
-		.is()
-		.max(100) // Maximum length 100
-		.has()
-		.uppercase() // Must have uppercase letters
-		.has()
-		.lowercase() // Must have lowercase letters
-		.has()
-		.digits() // Must have digits
-		.has()
-		.symbols(); // Should have spymbols
-
-	if (!passwordSchema.validate(req.body.password)) {
-		invalid.push({
-			field: "password",
-			message: "Password must be a minimum 8 characters and contain at least uppercase, lowercase, number, and special character."
-		});
-	}
-
-	if (req.body.password !== req.body.confirmpassword) {
-		invalid.push({
-			field: "confirmpassword",
-			message: "Passwords didn't match."
-		});
-	}
-
-	let result = { valid: true };
-	let organizationId;
-	const organizationCode = req.body.organization;
-
-	try {
-		const organization = await Organization.findOne({ accessCode: organizationCode });
-		if (!organization) {
-			invalid.push({
-				field: "organization",
-				message: "Invalid organization code."
-			});
-		} else {
-			const user = await User.findOne({ email: req.body.email });
-			if (user) {
-				invalid.push({
-					field: "email",
-					message: "Email is already registered."
-				});
-			} else {
-				const domain = req.body.email.substring(req.body.email.indexOf("@") + 1);
-				if (organization.domain !== domain) {
-					invalid.push({
-						field: "organization",
-						message: "Organization code doesn't match email domain."
-					});
-				} else {
-					organizationId = organization._id;
-				}
-			}
-		}
-	} catch (error) {
-		result = { valid: false, error };
-	}
-
-	if (requiredEmpty.length > 0 || invalid.length > 0) {
-		result = {
-			valid: false,
-			fields,
-			errors: {
-				requiredEmpty,
-				invalid
-			}
-		};
-	}
-
-	if (result.valid) {
-		User.register(new User({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, organization: organizationId }), req.body.password, (err, user) => {
-			if (err) {
-				console.log(err);
-				result = { valid: false, err };
-			} else {
-				passport.authenticate("local")(req, res, () => {
-					return res.send(result);
-				});
-			}
-		});
-	} else {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		result = { valid: false, fields, errors: errors.array({ onlyFirstError: true }) };
 		return res.send(result);
 	}
+
+	const organization = await Organization.findOne({ accessCode: req.body.organization });
+
+	User.register(new User({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, organization: organization._id }), req.body.password, (errors, user) => {
+		if (errors) {
+			result = { valid: false, fields, errors: [{ msg: "There was a problem. Try again later." }] };
+			return res.send(result);
+		}
+
+		passport.authenticate("local")(req, res, () => {
+			return res.send(result);
+		});
+	});
 });
 
 router.get("/organization", async (req, res) => {
