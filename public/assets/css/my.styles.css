@@ -37,3 +37,11 @@
 	margin-top: 15px;
 	display: none;
 }
+
+#registerErrors,
+#loginErrors {
+	font-size: 0.75em;
+	text-align: left;
+	margin-bottom: 0;
+	display: none;
+}
