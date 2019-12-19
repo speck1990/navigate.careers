@@ -22,8 +22,9 @@ $(function() {
 		const data = $(event.target).serialize();
 
 		$.post("/register", data, result => {
-			if (result.valid == true) {
-				window.location.href = "/library";
+			console.log(result);
+			if (result.valid) {
+				window.location.href = "/register?s=ok";
 			} else {
 				$(".loading").hide();
 				$(".alert").show();
