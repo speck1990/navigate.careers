@@ -3,8 +3,20 @@ const router = express.Router();
 const User = require("../models/user");
 const Organization = require("../models/organization");
 const passport = require("passport");
+const mailer = require("../helpers/mailer");
+const randomString = require("randomstring");
 
 const { userValidationRules, validationResult } = require("../middleware/validation");
+
+router.get("/register", async (req, res) => {
+	const s = req.query.s;
+
+	if (s === "ok") {
+		return res.render("check-email", { layout: "layouts/simple" });
+	}
+
+	res.sendStatus(202);
+});
 
 router.post("/register", userValidationRules(), async (req, res) => {
 	let result = { valid: true };
@@ -18,17 +30,49 @@ router.post("/register", userValidationRules(), async (req, res) => {
 	}
 
 	const organization = await Organization.findOne({ accessCode: req.body.organization });
+	const secretToken = randomString.generate();
+	const active = false;
 
-	User.register(new User({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, organization: organization._id }), req.body.password, (errors, user) => {
+	User.register(new User({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, organization: organization._id, secretToken, active }), req.body.password, async (errors, user) => {
 		if (errors) {
 			result = { valid: false, fields, errors: [{ msg: "There was a problem. Try again later." }] };
 			return res.send(result);
 		}
 
-		passport.authenticate("local")(req, res, () => {
-			return res.send(result);
+		// send mail with defined transport object
+		let info = await mailer.sendMail({
+			from: "speck@gatcguymon.com", // sender address
+			to: req.body.email, // list of receivers
+			subject: `Hello ${req.body.firstname}`, // Subject line
+			template: "verification",
+			context: {
+				firstname: req.body.firstname,
+				lastname: req.body.lastname,
+				secretToken
+			}
 		});
+
+		return res.send(result);
 	});
+});
+
+router.get("/verify/:secretToken", async (req, res) => {
+	const secretToken = req.params.secretToken;
+
+	try {
+		const user = await User.findOne({ secretToken });
+		if (!user) {
+			return res.sendStatus(404);
+		}
+
+		user.active = true;
+		user.secretToken = "";
+		user.save();
+
+		res.render("verified-email", { layout: "layouts/simple" });
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 router.get("/organization", async (req, res) => {

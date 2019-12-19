@@ -22,11 +22,21 @@ const UserSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
 		ref: "Organization"
+	},
+	secretToken: {
+		type: String
+	},
+	active: {
+		type: Boolean
 	}
 });
 
 UserSchema.plugin(passportLocalMongoose, {
-	usernameField: "email"
+	usernameField: "email",
+	findByUsername: function(model, queryParameters) {
+		queryParameters.active = true;
+		return model.findOne(queryParameters);
+	}
 });
 
 module.exports = mongoose.model("User", UserSchema);
