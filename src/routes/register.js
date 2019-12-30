@@ -39,18 +39,22 @@ router.post("/register", userValidationRules(), async (req, res) => {
 			return res.send(result);
 		}
 
-		// send mail with defined transport object
-		let info = await mailer.sendMail({
-			from: "speck@gatcguymon.com", // sender address
-			to: req.body.email, // list of receivers
-			subject: `Hello ${req.body.firstname}`, // Subject line
-			template: "verification",
-			context: {
-				firstname: req.body.firstname,
-				lastname: req.body.lastname,
-				secretToken
-			}
-		});
+		try {
+			// send mail with defined transport object
+			await mailer.sendMail({
+				from: "speck@gatcguymon.com", // sender address
+				to: req.body.email, // list of receivers
+				subject: `Hello ${req.body.firstname}`,
+				template: "verification",
+				context: {
+					firstname: req.body.firstname,
+					lastname: req.body.lastname,
+					secretToken
+				}
+			});
+		} catch (error) {
+			console.log(error);
+		}
 
 		return res.send(result);
 	});
