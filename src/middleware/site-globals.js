@@ -21,6 +21,7 @@ module.exports = async (req, res, next) => {
 			footerLogo: data.footer_logo,
 			year: new Date().getFullYear(),
 			user: req.isAuthenticated(),
+			domain: process.env.DOMAIN,
 			ref
 		};
 	} catch {}
