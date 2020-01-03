@@ -49,7 +49,8 @@ router.post("/register", userValidationRules(), async (req, res) => {
 				context: {
 					firstname: req.body.firstname,
 					lastname: req.body.lastname,
-					secretToken
+					secretToken,
+					domain: process.env.DOMAIN
 				}
 			});
 		} catch (error) {
