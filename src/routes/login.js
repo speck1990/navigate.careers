@@ -16,7 +16,6 @@ router.post("/login", async (req, res, next) => {
 			}
 			return res.send({ valid: true });
 		});
-		console.log({ error, user, info });
 		res.send(info.message);
 	})(req, res, next);
 });
