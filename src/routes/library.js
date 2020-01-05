@@ -41,13 +41,30 @@ router.get("/library", auth, async (req, res) => {
 			articles = await api.query([Prismic.Predicates.at("document.type", "article"), Prismic.Predicates.at("my.article.category", cat)], articleOptions);
 		}
 
-		// Add "new" property to article if published less than 15 days
 		articles.results.forEach((article, index) => {
+			// Add "new" property to article if published less than 15 days
 			const pubDate = new Date(article.first_publication_date);
 			const now = new Date();
 			const diff = (now - pubDate) / (1000 * 60 * 60 * 24);
 			if (diff < 8) {
 				articles.results[index].new = true;
+			}
+
+			// Check if featured_image.thumbnail is empty
+			if (!article.data.featured_image.thumbnail.url) {
+				// Search through body for embed or image type
+				let thumbnailUrl;
+				article.data.body.find(element => {
+					if (element.type == "embed") {
+						// Assign embed thumbnail url to thumbnailUrl
+						return (thumbnailUrl = element.oembed.thumbnail_url);
+					} else if (element.type == "image") {
+						// Assign image url to thumbnailUrl
+						return (thumbnailUrl = element.url);
+					}
+				});
+				// Set featured_image.thumbnail.url to image found in article body
+				article.data.featured_image.thumbnail.url = thumbnailUrl;
 			}
 		});
 
