@@ -10,8 +10,9 @@ $(function() {
 				window.location.href = "/library";
 			} else {
 				$(".loading").hide();
-				$(".alert").show();
-				$("#loginErrors").html(result);
+				$("#loginErrors")
+					.show()
+					.html(result);
 			}
 		});
 	});
@@ -27,7 +28,6 @@ $(function() {
 				window.location.href = "/register?s=ok";
 			} else {
 				$(".loading").hide();
-				$(".alert").show();
 
 				let msg = "";
 				result.errors.forEach(error => (msg += error.msg + "<br>"));
@@ -53,7 +53,9 @@ $(function() {
 					}
 				});
 
-				$("#registerErrors").html(msg);
+				$("#registerErrors")
+					.show()
+					.html(msg);
 			}
 		});
 	});
