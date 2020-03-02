@@ -10,6 +10,7 @@ $(function() {
 				window.location.href = "/library";
 			} else {
 				$(".loading").hide();
+				$(".alert").show();
 				$("#loginErrors").html(result);
 			}
 		});
