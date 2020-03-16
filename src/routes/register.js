@@ -44,13 +44,14 @@ router.post("/register", userValidationRules(), async (req, res) => {
 			await mailer.sendMail({
 				from: "speck@gatcguymon.com", // sender address
 				to: req.body.email, // list of receivers
-				subject: `Hello ${req.body.firstname}`,
+				subject: `Hello ${req.body.firstname}! Welcome to Compass`,
 				template: "verification",
 				context: {
 					firstname: req.body.firstname,
 					lastname: req.body.lastname,
 					secretToken,
-					domain: process.env.DOMAIN
+					domain: process.env.DOMAIN,
+					logo: res.locals.site.logo.url
 				}
 			});
 		} catch (error) {
