@@ -61,3 +61,11 @@ main {
 	margin-bottom: 0;
 	display: none;
 }
+
+.email-verify {
+	text-align: center;
+}
+
+.large-icon {
+	font-size: 100px;
+}
