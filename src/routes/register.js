@@ -42,7 +42,7 @@ router.post("/register", userValidationRules(), async (req, res) => {
 		try {
 			// send mail with defined transport object
 			await mailer.sendMail({
-				from: "speck@gatcguymon.com", // sender address
+				from: "postmaster@compass.careers", // sender address
 				to: req.body.email, // list of receivers
 				subject: `Hello ${req.body.firstname}! Welcome to Compass`,
 				template: "verification",
