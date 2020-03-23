@@ -25,7 +25,7 @@ $(function() {
 
 		$.post("/register", data, result => {
 			if (result.valid) {
-				window.location.href = "/register?s=ok";
+				window.location.href = "/register";
 			} else {
 				$(".loading").hide();
 
@@ -57,6 +57,16 @@ $(function() {
 					.show()
 					.html(msg);
 			}
+		});
+	});
+
+	$("#resend a").on("click", event => {
+		event.preventDefault();
+
+		const data = { uid: $(event.target).data("uid") };
+
+		$.post("/register/resend", data, result => {
+			//
 		});
 	});
 });
