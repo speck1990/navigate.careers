@@ -8,11 +8,49 @@ const randomString = require("randomstring");
 
 const { userValidationRules, validationResult } = require("../middleware/validation");
 
-router.get("/register", async (req, res) => {
-	const s = req.query.s;
+const sendVerifyEmail = (req, res, { email, firstname, lastname, secretToken }) => {
+	return new Promise((resolve, reject) => {
+		mailer
+			.sendMail({
+				from: "postmaster@compass.careers", // sender address
+				to: email,
+				subject: `Hello ${firstname}! Welcome to Compass`,
+				template: "verification",
+				context: {
+					firstname: firstname,
+					lastname: lastname,
+					secretToken,
+					domain: process.env.DOMAIN,
+					logo: res.locals.site.logo.url
+				}
+			})
+			.then(data => {
+				resolve(data);
+			})
+			.catch(error => {
+				reject(error);
+			});
+	});
+};
 
-	if (s === "ok") {
-		return res.render("check-email", { layout: "layouts/simple" });
+router.get("/register", (req, res) => {
+	const userId = req.session.userId;
+
+	if (userId) {
+		return res.render("check-email", { layout: "layouts/simple", userId });
+	}
+
+	res.redirect("/");
+});
+
+router.post("/register/resend", async (req, res) => {
+	const { uid } = req.body;
+	const user = await User.findById(uid);
+
+	try {
+		await sendVerifyEmail(req, res, user);
+	} catch (error) {
+		console.log(error);
 	}
 
 	res.sendStatus(202);
@@ -40,24 +78,12 @@ router.post("/register", userValidationRules(), async (req, res) => {
 		}
 
 		try {
-			// send mail with defined transport object
-			await mailer.sendMail({
-				from: "postmaster@compass.careers", // sender address
-				to: req.body.email, // list of receivers
-				subject: `Hello ${req.body.firstname}! Welcome to Compass`,
-				template: "verification",
-				context: {
-					firstname: req.body.firstname,
-					lastname: req.body.lastname,
-					secretToken,
-					domain: process.env.DOMAIN,
-					logo: res.locals.site.logo.url
-				}
-			});
+			await sendVerifyEmail(req, res, user);
 		} catch (error) {
 			console.log(error);
 		}
 
+		req.session.userId = user._id;
 		return res.send(result);
 	});
 });
@@ -68,7 +94,7 @@ router.get("/verify/:secretToken", async (req, res) => {
 	try {
 		const user = await User.findOne({ secretToken });
 		if (!user) {
-			return res.sendStatus(404);
+			return res.redirect("/");
 		}
 
 		user.active = true;
