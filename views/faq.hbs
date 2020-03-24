@@ -1,0 +1,19 @@
+<div class="comment-sec">
+    <ul class="comment-list">
+        {{#each document.data.faq}}
+        <li>
+            <div class="comment_container">
+                <div class="comment-text">
+                    <p class="meta">
+                        <strong class="woocommerce-review__author">{{PrismicText question}}</strong>
+                        <span class="question-user">{{PrismicText user}}</time>
+                    </p>
+                    <div class="description">
+                        <p>{{{PrismicHtml answer}}}</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>

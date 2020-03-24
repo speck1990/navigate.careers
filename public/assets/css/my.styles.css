@@ -73,3 +73,9 @@ main {
 .mb-20 {
 	margin-bottom: 20px !important;
 }
+
+.question-user {
+	color: #e36c4d;
+	font-size: 15px;
+	margin-left: 5px;
+}
