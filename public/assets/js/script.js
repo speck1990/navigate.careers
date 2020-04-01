@@ -290,7 +290,7 @@ jQuery(document).ready(function() {
 
 	/*===== Popup =====*/
 	$(".get-login-register").on("click", function() {
-		$(".cust-modal").addClass("show-model");
+		$("#login-registration").addClass("show-model");
 		$("body").addClass("modal-visible");
 		return false;
 	});
@@ -298,7 +298,7 @@ jQuery(document).ready(function() {
 	$(".modal-overlay, .model-close").on("click", function() {
 		if ($("body").hasClass("modal-visible")) {
 			$("body").removeClass("modal-visible");
-			$(".cust-modal").removeClass("show-model");
+			$("#login-registration").removeClass("show-model");
 		}
 	});
 
