@@ -18,3 +18,28 @@
         {{/each}}
     </ul>
 </div>
+
+<div class="cust-modal" id="ask-question">
+    <span class="model-close"><i class="fa fa-times"></i></span>
+    <div class="model-content">
+
+        <div class="registr-form">
+            <div class="bg-image with-pattern"></div>
+            <div class="registr-content">
+                <h3>Ask a Question</h3>
+                <form id="questionForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="question" id="question" cols="30" rows="10"></textarea>
+                    </div>
+                    <div id="questionErrors" class="alert alert-danger" role="alert"></div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <p class="loading"><img src="/images/loader.gif" alt=""></p>
+        </div>
+
+    </div>
+</div>
