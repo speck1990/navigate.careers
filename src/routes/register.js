@@ -6,7 +6,7 @@ const passport = require("passport");
 const mailer = require("../helpers/mailer");
 const randomString = require("randomstring");
 
-const { userValidationRules, validationResult } = require("../middleware/validation");
+const { registerValidationRules, validationResult } = require("../middleware/validation");
 
 const sendVerifyEmail = (req, res, { email, firstname, lastname, secretToken }) => {
 	return new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ router.post("/register/resend", async (req, res) => {
 	res.sendStatus(202);
 });
 
-router.post("/register", userValidationRules(), async (req, res) => {
+router.post("/register", registerValidationRules(), async (req, res) => {
 	let result = { valid: true };
 
 	const fields = Object.keys(req.body);
