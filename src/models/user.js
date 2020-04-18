@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const crypto = require("crypto");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -26,6 +27,12 @@ const UserSchema = new mongoose.Schema({
 	secretToken: {
 		type: String
 	},
+	resetPasswordToken: {
+		type: String
+	},
+	resetPasswordExpires: {
+		type: Date
+	},
 	active: {
 		type: Boolean
 	}
@@ -34,5 +41,10 @@ const UserSchema = new mongoose.Schema({
 UserSchema.plugin(passportLocalMongoose, {
 	usernameField: "email"
 });
+
+UserSchema.methods.generatePasswordReset = function () {
+	this.resetPasswordToken = crypto.randomBytes(20).toString("hex");
+	this.resetPasswordExpires = Date.now() + 3600000; //expires in an hour
+};
 
 module.exports = mongoose.model("User", UserSchema);
