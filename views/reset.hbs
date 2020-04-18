@@ -1,0 +1,21 @@
+<div class="registr-form password-reset">
+    <div class="bg-image with-pattern"></div>
+    <div class="registr-content">
+        <h3>Change password</h3>
+        <div id="passwordResetContent">
+
+            <form id="passwordResetForm" data-url="/password/reset/{{ token }}">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword"
+                        placeholder="Confirm Password">
+                </div>
+                <div id="resetErrors" class="formErrors alert alert-danger" role="alert"></div>
+                <button type="submit">Change password</button>
+            </form>
+            <p class="loading"><img src="/images/loader.gif" alt=""></p>
+        </div>
+    </div>
+</div>
