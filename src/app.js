@@ -22,6 +22,7 @@ const previewRouter = require("./routes/preview");
 const loginRouter = require("./routes/login");
 const logoutRouter = require("./routes/logout");
 const registerRouter = require("./routes/register");
+const passwordRouter = require("./routes/password");
 const faqRouter = require("./routes/faq");
 const pageRouter = require("./routes/page");
 
@@ -74,6 +75,7 @@ app.use(articleRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
 app.use(registerRouter);
+app.use(passwordRouter);
 app.use(previewRouter);
 app.use(faqRouter);
 app.use(pageRouter);
