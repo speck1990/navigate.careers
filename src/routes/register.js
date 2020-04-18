@@ -2,34 +2,33 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const Organization = require("../models/organization");
-const passport = require("passport");
-const mailer = require("../helpers/mailer");
 const randomString = require("randomstring");
+
+const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "compass.careers" });
 
 const { registerValidationRules, validationResult } = require("../middleware/validation");
 
 const sendVerifyEmail = (req, res, { email, firstname, lastname, secretToken }) => {
 	return new Promise((resolve, reject) => {
-		mailer
-			.sendMail({
-				from: "postmaster@compass.careers", // sender address
-				to: email,
-				subject: `Hello ${firstname}! Welcome to Compass`,
-				template: "verification",
-				context: {
-					firstname: firstname,
-					lastname: lastname,
-					secretToken,
-					domain: process.env.DOMAIN,
-					logo: res.locals.site.logo.url
-				}
-			})
-			.then(data => {
-				resolve(data);
-			})
-			.catch(error => {
-				reject(error);
-			});
+		const data = {
+			from: "Compass <postmaster@compass.careers>",
+			to: email,
+			subject: `Hello ${firstname}! Welcome to Compass`,
+			template: "verification",
+			"v:firstname": firstname,
+			"v:lastname": lastname,
+			"v:secretToken": secretToken,
+			"v:domain": process.env.DOMAIN,
+			"v:logo": res.locals.site.logo.url
+		};
+
+		mailgun.messages().send(data, (error, body) => {
+			if (error) {
+				return reject(body);
+			}
+
+			reject(error);
+		});
 	});
 };
 
