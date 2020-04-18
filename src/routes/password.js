@@ -59,13 +59,11 @@ router.post("/password/recover", emailValidationRules(), async (req, res, next) 
 // Display form to enter new password
 router.get("/password/reset/:token", async (req, res) => {
 	const token = req.params.token;
-	let result = { valid: true };
 
 	try {
 		const user = await User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
 
 		if (!user) {
-			result = { valid: false, errors: [{ msg: "Password reset token is invalid or has expired." }] };
 			return res.render("invalid-token", { layout: "layouts/simple" });
 		}
 
