@@ -66,7 +66,7 @@ router.get("/password/reset/:token", async (req, res) => {
 
 		if (!user) {
 			result = { valid: false, errors: [{ msg: "Password reset token is invalid or has expired." }] };
-			return res.status(401).send(result);
+			return res.render("invalid-token", { layout: "layouts/simple" });
 		}
 
 		res.render("reset", { token, layout: "layouts/simple" });
