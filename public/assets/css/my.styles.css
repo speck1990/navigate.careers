@@ -55,7 +55,10 @@ main {
 }
 
 #registerErrors,
-#loginErrors {
+#loginErrors,
+#recoverErrors,
+#resetErrors,
+.formErrors {
 	font-size: 0.75em;
 	text-align: left;
 	margin-bottom: 0;
@@ -68,6 +71,10 @@ main {
 
 .large-icon {
 	font-size: 100px;
+}
+
+.password-reset {
+	margin-right: auto;
 }
 
 .mb-20 {
@@ -83,4 +90,17 @@ main {
 .button-link {
 	text-align: center;
 	margin-bottom: 25px;
+}
+
+#passwordHelp a {
+	color: white;
+	cursor: pointer;
+}
+
+#passwordHelp a:hover {
+	color: #e7e7e7;
+}
+
+#passwordHelp {
+	text-align: right;
 }
