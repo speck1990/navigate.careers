@@ -3,7 +3,8 @@ const passwordValidator = require("password-validator");
 const User = require("../models/user");
 const Organization = require("../models/organization");
 
-const validEmail = () => {
+const validExistingEmail = () => {
+	// Email should be valid and exist
 	return check("email")
 		.isEmail()
 		.withMessage("Email is invalid.")
@@ -11,6 +12,20 @@ const validEmail = () => {
 			return User.findOne({ email: value }).then(user => {
 				if (!user) {
 					return Promise.reject("Email address does not exist.");
+				}
+			});
+		});
+};
+
+const validNewEmail = () => {
+	// Email should be valid and not taken
+	return check("email")
+		.isEmail()
+		.withMessage("Email is invalid.")
+		.custom(value => {
+			return User.findOne({ email: value }).then(user => {
+				if (user) {
+					return Promise.reject("E-mail already in use.");
 				}
 			});
 		});
@@ -76,7 +91,7 @@ const registerValidationRules = () => {
 		// All fields are required
 		oneOf([[check("firstname").notEmpty(), check("lastname").notEmpty(), check("email").notEmpty(), check("password").notEmpty(), check("confirmpassword").notEmpty(), check("organization").notEmpty()]], "All fields are required."),
 		// Email should be valid and not taken
-		validEmail(),
+		validNewEmail(),
 		// Password should meet valid requirements
 		validPassword(),
 		// Confirm password must match password
@@ -90,8 +105,8 @@ const emailValidationRules = () => {
 	return [
 		// Email is required
 		oneOf([[check("email").notEmpty()]], "Email is required."),
-		// Email should be valid
-		validEmail()
+		// Email should be valid and existing
+		validExistingEmail()
 	];
 };
 
