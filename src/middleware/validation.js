@@ -18,10 +18,18 @@ const validExistingEmail = () => {
 };
 
 const validNewEmail = () => {
-	// Email should be valid and not taken
+	// Email should be valid, available domain, and not taken
 	return check("email")
 		.isEmail()
 		.withMessage("Email is invalid.")
+		.custom(value => {
+			const domain = value.split("@").pop();
+			return Organization.findOne({ domain }).then(organization => {
+				if (!organization) {
+					return Promise.reject("Must use domain provided by your organization.");
+				}
+			});
+		})
 		.custom(value => {
 			return User.findOne({ email: value }).then(user => {
 				if (user) {
@@ -89,15 +97,13 @@ const validOrganization = () => {
 const registerValidationRules = () => {
 	return [
 		// All fields are required
-		oneOf([[check("firstname").notEmpty(), check("lastname").notEmpty(), check("email").notEmpty(), check("password").notEmpty(), check("confirmpassword").notEmpty(), check("organization").notEmpty()]], "All fields are required."),
+		oneOf([[check("firstname").notEmpty(), check("lastname").notEmpty(), check("email").notEmpty(), check("password").notEmpty(), check("confirmpassword").notEmpty() /*, check("organization").notEmpty()*/]], "All fields are required."),
 		// Email should be valid and not taken
 		validNewEmail(),
 		// Password should meet valid requirements
 		validPassword(),
 		// Confirm password must match password
-		matchingConfirmPassword(),
-		// Organization code should exists and matches email domain
-		validOrganization()
+		matchingConfirmPassword()
 	];
 };
 

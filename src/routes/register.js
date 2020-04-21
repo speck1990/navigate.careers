@@ -66,7 +66,9 @@ router.post("/register", registerValidationRules(), async (req, res) => {
 		return res.send(result);
 	}
 
-	const organization = await Organization.findOne({ accessCode: req.body.organization });
+	const email = req.body.email;
+	const domain = email.split("@").pop();
+	const organization = await Organization.findOne({ domain });
 	const secretToken = randomString.generate();
 	const active = false;
 
