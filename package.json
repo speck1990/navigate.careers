@@ -8,7 +8,10 @@
 		"test": "env-cmd -f ./src/config/test.env jest --watch"
 	},
 	"jest": {
-		"testEnvironment": "node"
+		"preset": "jest-puppeteer",
+		"setupFilesAfterEnv": [
+			"expect-puppeteer"
+		]
 	},
 	"dependencies": {
 		"bcrypt": "^3.0.8",
@@ -38,10 +41,13 @@
 		"validator": "^12.2.0"
 	},
 	"devDependencies": {
+		"expect-puppeteer": "^4.4.0",
 		"gulp": "^4.0.2",
 		"gulp-concat-css": "^3.1.0",
 		"gulp-uglifycss": "^1.1.0",
 		"jest": "^24.9.0",
-		"nodemon": "^1.19.4"
+		"jest-puppeteer": "^4.4.0",
+		"nodemon": "^1.19.4",
+		"puppeteer": "^3.0.1"
 	}
 }
