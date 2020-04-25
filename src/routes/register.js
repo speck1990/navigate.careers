@@ -27,7 +27,7 @@ const sendVerifyEmail = (req, res, { email, firstname, lastname, secretToken }) 
 				return reject(body);
 			}
 
-			reject(error);
+			resolve(error);
 		});
 	});
 };
