@@ -29,7 +29,7 @@ router.get("/library", auth, async (req, res) => {
 		categoryType.results.forEach(category => {
 			usedCategories.find(usedCategory => {
 				if (usedCategory === category.slugs[0]) {
-					categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text });
+					categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text, image: category.data.category_image.url });
 				}
 			});
 		});
@@ -77,7 +77,7 @@ router.get("/library", auth, async (req, res) => {
 			current: articles.page,
 			rowsPerPage: articles.results_per_page,
 			totalResult: articles.total_results_size,
-			template: function(result) {
+			template: function (result) {
 				let i, len, prelink;
 				let html = `<ul class="paginationz top-margin-70">`;
 				if (result.pageCount < 2) {
@@ -105,7 +105,7 @@ router.get("/library", auth, async (req, res) => {
 			}
 		});
 
-		res.render("library", { document: response, categories, articles: articles, paginator: paginator.render(), noContainer: true });
+		res.render("library-grid", { document: response, categories, articles: articles, paginator: paginator.render(), noContainer: true });
 	} catch (error) {
 		res.status(404).send(error);
 	}

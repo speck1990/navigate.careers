@@ -1,0 +1,19 @@
+<div class="col-md-11 col-xl-10 mx-auto">
+    <div class="course-page">
+        <ul class="row masonry">
+            {{#each categories}}
+            <li class="col-sm-6 col-lg-4 trending certified">
+                <div class="pop-course">
+                    <div class="course-thumb">
+                        <img src="{{image}}" alt="">
+                        <a href="course-detail.html" class="butn">View</a>
+                    </div>
+                    <div class="course-meta">
+                        <h2><a href="?category={{id}}">{{name}}</a></h2>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
