@@ -3,3 +3,5 @@ node_modules
 src/config/*.env
 src/tests
 gulpfile.js
+tests
+jest-puppeteer.config.js
