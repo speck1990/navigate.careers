@@ -59,10 +59,18 @@ $(function () {
 	$("#resend a").on("click", event => {
 		event.preventDefault();
 
+		$("#sendingLoading").show();
+		$("#sentmsg").hide();
+
 		const data = { uid: $(event.target).data("uid") };
 
 		$.post("/register/resend", data, result => {
-			//
+			if (result.valid == true) {
+				$("#sentmsg").show().html("<i class='fas fa-check'></i>  Sent");
+			} else {
+				$("#sentmsg").show().html(result.msg);
+			}
+			$("#sendingLoading").hide();
 		});
 	});
 

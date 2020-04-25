@@ -43,16 +43,19 @@ router.get("/register", (req, res) => {
 });
 
 router.post("/register/resend", async (req, res) => {
+	let result = { valid: true };
 	const { uid } = req.body;
+
 	const user = await User.findById(uid);
 
 	try {
 		await sendVerifyEmail(req, res, user);
 	} catch (error) {
-		console.log(error);
+		result = { valid: false, msg: "There was a problem. Try again later." };
+		return res.send(result);
 	}
 
-	res.sendStatus(202);
+	res.send(result);
 });
 
 router.post("/register", registerValidationRules(), async (req, res) => {
