@@ -84,7 +84,9 @@ router.post("/register", registerValidationRules(), async (req, res) => {
 		try {
 			await sendVerifyEmail(req, res, user);
 		} catch (error) {
-			console.log(error);
+			await User.deleteOne({ _id: user._id });
+			result = { valid: false, fields, errors: [{ msg: "There was a problem. Try again later." }] };
+			return res.send(result);
 		}
 
 		req.session.userId = user._id;
