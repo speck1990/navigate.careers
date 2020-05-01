@@ -1,4 +1,5 @@
 const createError = require("http-errors");
+const Sentry = require("@sentry/node");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -30,6 +31,9 @@ const pageRouter = require("./routes/page");
 require("./db/mongoose");
 
 const app = express();
+
+Sentry.init({ environment: "development", dsn: "https://4682ef4e13844228be172e51ba28e0fd@o386167.ingest.sentry.io/5220080" });
+app.use(Sentry.Handlers.requestHandler());
 
 // passport config
 const User = require("./models/user");
@@ -79,6 +83,13 @@ app.use(passwordRouter);
 app.use(previewRouter);
 app.use(faqRouter);
 app.use(pageRouter);
+
+app.use(Sentry.Handlers.errorHandler());
+
+app.use((err, req, res, next) => {
+	res.statusCode = 500;
+	res.end(res.sentry + "\n");
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
