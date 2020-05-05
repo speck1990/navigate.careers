@@ -9,8 +9,39 @@ const auth = require("../middleware/auth");
 
 /* GET library page. */
 router.get("/library", auth, async (req, res) => {
-	const page = req.query.page;
 	const cat = req.query.category;
+	try {
+		const api = await PrismicInitApi(req);
+		const response = await api.getSingle("library");
+
+		// Get all of articles
+		let articles = await api.query(Prismic.Predicates.at("document.type", "article"));
+
+		// Add category slugs to array
+		let usedCategories = articles.results.map(data => data.data.category.slug);
+		// Remove duplicates
+		usedCategories = [...new Set(usedCategories)];
+
+		const categoryType = await api.query(Prismic.Predicates.at("document.type", "category"));
+
+		const categories = []; // will contain the categories that are transferred to page
+		categoryType.results.forEach(category => {
+			usedCategories.find(usedCategory => {
+				if (usedCategory === category.slugs[0]) {
+					categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text, image: category.data.category_image.url });
+				}
+			});
+		});
+
+		res.render("library-grid", { document: response, categories, noContainer: true });
+	} catch (error) {
+		res.status(404).send(error);
+	}
+});
+
+router.get("/library/:category", async (req, res) => {
+	const page = req.query.page;
+	const cat = req.params.category;
 	try {
 		const api = await PrismicInitApi(req);
 		const response = await api.getSingle("library");
@@ -105,7 +136,7 @@ router.get("/library", auth, async (req, res) => {
 			}
 		});
 
-		res.render("library-grid", { document: response, categories, articles: articles, paginator: paginator.render(), noContainer: true });
+		res.render("library", { document: response, categories, articles: articles, paginator: paginator.render(), noContainer: true });
 	} catch (error) {
 		res.status(404).send(error);
 	}
