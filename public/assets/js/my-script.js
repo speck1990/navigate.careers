@@ -117,18 +117,4 @@ $(function () {
 			}
 		});
 	});
-
-	/*===== Popup =====*/
-	$(".ask-question").on("click", function () {
-		$("#ask-question").addClass("show-model");
-		$("body").addClass("modal-visible");
-		return false;
-	});
-
-	$(".modal-overlay, .model-close").on("click", function () {
-		if ($("body").hasClass("modal-visible")) {
-			$("body").removeClass("modal-visible");
-			$("#ask-question").removeClass("show-model");
-		}
-	});
 });
