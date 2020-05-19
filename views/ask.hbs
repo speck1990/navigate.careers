@@ -1,0 +1,41 @@
+<div class="col-md-10 mx-auto">
+    <div class="contact-us">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Please let us know if you Have any Questions?</h2>
+                <form id="commentform" class="comment-form contact__form">
+                    <div id="questionConfirmation" class="alert alert-success contact__msg" style="display: none;"
+                        role="alert">
+                        Your message was sent successfully.
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p class="comment-form-author">
+                                <label for="author"><i class="fa fa-user"></i></label>
+                                <input placeholder="Full Name" id="author" name="name" type="text" value="{{fullName}}"
+                                    required="" />
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="comment-form-email">
+                                <label for="email"><i class="fa fa-envelope-open"></i></label>
+                                <input placeholder="Email Adress" id="email" name="email" type="email" value="{{email}}"
+                                    required="" />
+                            </p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="comment-form-comment">
+                                <label for="comment"><i class="fa fa-comment-alt"></i></label>
+                                <textarea placeholder="Message" id="comment" name="message" cols="45" rows="5"
+                                    required=""></textarea>
+                            </p>
+                        </div>
+                    </div>
+                    <p class="form-submit">
+                        <button type="submit" class="submit butn1 butn-bg">Send Message</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
