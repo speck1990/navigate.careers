@@ -12,11 +12,13 @@ const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain:
 router.get("/faq", async (req, res) => {
 	const uid = req.params.uid;
 
+	const isLoggedIn = req.user ? true : false;
+
 	try {
 		const api = await PrismicInitApi(req);
 		const response = await api.getSingle("faq");
 		console.log(response.data.faq);
-		res.render("faq", { document: response });
+		res.render("faq", { document: response, isLoggedIn });
 	} catch {
 		res.status(404).send("page not found");
 	}
