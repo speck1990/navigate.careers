@@ -108,3 +108,7 @@ main {
 #logoImg {
 	max-width: 80%;
 }
+
+.course-list .course-meta {
+	vertical-align: top;
+}
