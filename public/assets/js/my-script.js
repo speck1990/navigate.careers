@@ -117,4 +117,23 @@ $(function () {
 			}
 		});
 	});
+
+	$("#commentform").on("submit", event => {
+		// send
+		event.preventDefault();
+
+		// $("#passwordResetContent > .loading").show();
+
+		var data = $(event.target).serialize();
+
+		const url = $(event.target).data("url");
+
+		$.post(url, data, result => {
+			if (result.valid == true) {
+				$("#questionConfirmation").removeAttr("style");
+			} else {
+				console.log("something went wrong");
+			}
+		});
+	});
 });
