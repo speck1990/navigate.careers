@@ -32,7 +32,7 @@ router.post("/password/recover", emailValidationRules(), async (req, res, next) 
 		let link = "http://" + req.headers.host + "/password/reset/" + user.resetPasswordToken;
 
 		const data = {
-			from: "Compass <postmaster@navigate.careers>",
+			from: "Navigate <postmaster@navigate.careers>",
 			to: user.email,
 			subject: "Reset Password",
 			template: "password-reset",

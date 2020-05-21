@@ -35,7 +35,7 @@ router.post("/ask", auth, async (req, res) => {
 
 	const data = {
 		from: `${req.body.name} <${req.body.email}>`,
-		to: "Compass <speck1990@gmail.com>",
+		to: "Navigate <speck1990@gmail.com>",
 		subject: "WEBSITE: Ask a Question",
 		template: "question",
 		"v:name": req.body.name,

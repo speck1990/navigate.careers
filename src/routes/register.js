@@ -13,7 +13,7 @@ const sendVerifyEmail = (req, res, { email, firstname, lastname, secretToken }) 
 		const data = {
 			from: "Navigate <postmaster@navigate.careers>",
 			to: email,
-			subject: `Hello ${firstname}! Welcome to Compass`,
+			subject: `Hello ${firstname}! Welcome to Navigate`,
 			template: "verification",
 			"v:firstname": firstname,
 			"v:lastname": lastname,
