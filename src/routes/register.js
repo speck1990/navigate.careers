@@ -4,14 +4,14 @@ const User = require("../models/user");
 const Organization = require("../models/organization");
 const randomString = require("randomstring");
 
-const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "compass.careers" });
+const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "m.navigate.careers" });
 
 const { registerValidationRules, validationResult } = require("../middleware/validation");
 
 const sendVerifyEmail = (req, res, { email, firstname, lastname, secretToken }) => {
 	return new Promise((resolve, reject) => {
 		const data = {
-			from: "Compass <postmaster@compass.careers>",
+			from: "Navigate <postmaster@navigate.careers>",
 			to: email,
 			subject: `Hello ${firstname}! Welcome to Compass`,
 			template: "verification",

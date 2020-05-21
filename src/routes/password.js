@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
-const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "compass.careers" });
+const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "m.navigate.careers" });
 
 const { emailValidationRules, passwordValidationRules, validationResult } = require("../middleware/validation");
 
@@ -32,7 +32,7 @@ router.post("/password/recover", emailValidationRules(), async (req, res, next) 
 		let link = "http://" + req.headers.host + "/password/reset/" + user.resetPasswordToken;
 
 		const data = {
-			from: "Compass <postmaster@compass.careers>",
+			from: "Compass <postmaster@navigate.careers>",
 			to: user.email,
 			subject: "Reset Password",
 			template: "password-reset",

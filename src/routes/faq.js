@@ -7,7 +7,7 @@ const PrismicInitApi = require("../utils/prismic-init");
 
 const auth = require("../middleware/auth");
 
-const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "compass.careers" });
+const mailgun = require("mailgun-js")({ apiKey: process.env.MAILGUN_API, domain: "m.navigate.careers" });
 /* GET library page. */
 router.get("/faq", async (req, res) => {
 	const uid = req.params.uid;
