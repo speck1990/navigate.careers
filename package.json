@@ -5,13 +5,10 @@
 	"scripts": {
 		"start": "env-cmd node ./src/www",
 		"dev": "env-cmd -f ./src/config/dev.env nodemon ./src/www -e js,hbs",
-		"test": "env-cmd -f ./src/config/test.env jest --watch"
+		"test": "env-cmd -f ./src/config/test.env jest --watch --runInBand"
 	},
 	"jest": {
-		"preset": "jest-puppeteer",
-		"setupFilesAfterEnv": [
-			"expect-puppeteer"
-		]
+		"testEnvironment": "node"
 	},
 	"dependencies": {
 		"@sentry/node": "^5.15.5",
