@@ -26,11 +26,11 @@ router.get("/library", auth, async (req, res) => {
 
 		const categories = []; // will contain the categories that are transferred to page
 		categoryType.results.forEach(category => {
-			usedCategories.find(usedCategory => {
-				if (usedCategory === category.slugs[0]) {
-					categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text, image: category.data.category_image.url });
-				}
-			});
+			// usedCategories.find(usedCategory => {
+			// if (usedCategory === category.slugs[0]) {
+			categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text, image: category.data.category_image.url });
+			// }
+			// });
 		});
 
 		res.render("library-grid", { document: response, categories, noContainer: true });
@@ -58,11 +58,11 @@ router.get("/library/:category", async (req, res) => {
 
 		const categories = []; // will contain the categories that are transferred to page
 		categoryType.results.forEach(category => {
-			usedCategories.find(usedCategory => {
-				if (usedCategory === category.slugs[0]) {
-					categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text, image: category.data.category_image.url });
-				}
-			});
+			// usedCategories.find(usedCategory => {
+			// 	if (usedCategory === category.slugs[0]) {
+			categories.push({ id: category.id, slug: category.slugs[0], name: category.data.name[0].text, image: category.data.category_image.url });
+			// 	}
+			// });
 		});
 
 		const articleOptions = { orderings: "[document.first_publication_date desc]", pageSize: 10, page };
