@@ -1,6 +1,7 @@
 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9">
     <div class="course-list-wrap">
 
+        {{#if articles.results}}
         {{#each articles.results}}
         <div class="course-list">
             <div class="course-thumb">
@@ -19,6 +20,9 @@
             </div>
         </div>
         {{/each}}
+        {{else}}
+        <div>No articles available</div>
+        {{/if}}
 
     </div>
 
