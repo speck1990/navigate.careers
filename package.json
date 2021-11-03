@@ -36,7 +36,7 @@
 		"prismic-dom": "^2.1.0",
 		"prismic-javascript": "^2.7.0",
 		"randomstring": "^1.1.5",
-		"validator": "^12.2.0"
+		"validator": "^13.7.0"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.2",
